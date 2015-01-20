@@ -1,0 +1,21 @@
+{
+    "name": "moxar/ftp",
+    "description": "Ftp library for Laravel",
+    "authors": [
+        {
+            "name": "Alexandre Thomas",
+            "email": "alexandre.thomas@outlook.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "illuminate/config": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Moxar\\Ftp": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
