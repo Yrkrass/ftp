@@ -57,7 +57,8 @@ The package behaves as the DB package provided by Illuminate. You need a config 
 				'port' => '21',
 				'username' => 'my_user_name',
 				'password' => 'my_password',
-				'protocol' => 'ftp',
+				'protocol' => 'ftp',				// You can use ftp, sftp or ftps.
+													// However, sftp and ftps are not well implemented. Expect bugs.
 			],
 			'some_other_connection' => [			// Another connection identified by another slug
 				...
