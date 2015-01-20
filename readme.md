@@ -5,8 +5,8 @@
 This is a php library for ftp. It's based on the laravel framework.
 To install, add the following lines to composer, then run composer update.
 
+./composer.json
 ```javascript
-	./composer.json
 
 	{
 		...
@@ -18,10 +18,10 @@ To install, add the following lines to composer, then run composer update.
 ```
 
 Don't forget to add the FtpServiceProvider to your config/app.pphp file.
-Also, I sugges you use an alias. The class responsible for the Ftp connection is known as `connection`.
+Also, I suggest you use an alias. The class responsible for the Ftp connection is known as `connection`.
 
+./config/app.php
 ```php
-	./config/app.php
 
 	return array(
 		...
@@ -44,8 +44,8 @@ Also, I sugges you use an alias. The class responsible for the Ftp connection is
 
 The package behaves as the DB package provided by Illuminate. You need a config file like this one.
 
+./config/ftp.php
 ```php
-	./config/ftp.php
 	
 	return [
 		'default' => 'some_connection',				// This the key of the default connection.
