@@ -6,6 +6,8 @@ This is a php library for ftp. It's based on the laravel framework.
 To install, add the following lines to composer, then run composer update.
 
 ```javascript
+	./composer.json
+
 	{
 		...
 		"require": {
@@ -43,7 +45,7 @@ Also, I sugges you use an alias. The class responsible for the Ftp connexion is 
 The package behaves as the DB package provided by Illuminate. You need a config file like this one.
 
 ```php
-	config/ftp.php
+	./config/ftp.php
 	
 	return [
 		'default' => 'some_connexion',				// This the key of the default connexion.
@@ -68,7 +70,7 @@ The package behaves as the DB package provided by Illuminate. You need a config 
 Once installation and configuration done, you can use the package.
 Here come some examples of usage.
 
-	```php
+```php
 	use Moxar\Ftp\Facades\Connexion as Ftp;
 	
 	// Connexion
@@ -98,7 +100,7 @@ The library comes with all the php vanilla functions thanks to the `__call()` ma
 Any vanilla ftp_method called will be called using the current connexion as `ftp_stream` argument.
 Here are some example of usage.
 
-	```php
+```php
 	use Moxar\Ftp\Facades\Connexion as Ftp;
 	
 	Ftp::ftp_chmod(755, $file);
