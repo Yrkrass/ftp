@@ -18,7 +18,7 @@ To install, add the following lines to composer, then run composer update.
 ```
 
 Don't forget to add the FtpServiceProvider to your config/app.pphp file.
-Also, I sugges you use an alias. The class responsible for the Ftp connexion is known as `connexion`.
+Also, I sugges you use an alias. The class responsible for the Ftp connection is known as `connection`.
 
 ```php
 	./config/app.php
@@ -33,7 +33,7 @@ Also, I sugges you use an alias. The class responsible for the Ftp connexion is 
 		...
 		'aliases' => array(
 			...
-			'Ftp' => 'Moxar/Ftp/Facades/Connexion',
+			'Ftp' => 'Moxar/Ftp/Facades/Connection',
 			...
 		),
 		...
@@ -48,17 +48,20 @@ The package behaves as the DB package provided by Illuminate. You need a config 
 	./config/ftp.php
 	
 	return [
-		'default' => 'some_connexion',				// This the key of the default connexion.
+		'default' => 'some_connection',				// This the key of the default connection.
+		
+		'connections' => [
 			
-		'some_connexion' => [						// A connexion identified by a slug
-			'host' => 'localhost',
-			'port' => '21',
-			'username' => 'my_user_name',
-			'password' => 'my_password',
-			'protocol' => 'ftp',
-		],
-		'some_other_connexion' => [					// Another connexion identified by another slug
-			...
+			'some_connection' => [					// A connection identified by a slug
+				'host' => 'localhost',
+				'port' => '21',
+				'username' => 'my_user_name',
+				'password' => 'my_password',
+				'protocol' => 'ftp',
+			],
+			'some_other_connection' => [			// Another connection identified by another slug
+				...
+			],
 		],
 	];
 ```
@@ -71,10 +74,7 @@ Once installation and configuration done, you can use the package.
 Here come some examples of usage.
 
 ```php
-	use Moxar\Ftp\Facades\Connexion as Ftp;
-	
-	// Connexion
-	Ftp::connexion($connexion);			// switches the $connexion to the defined slug.
+	use Moxar\Ftp\Facades\Connection as Ftp;
 	
 	// Uploads and Downloads
 	Ftp::upload($local, $remote); 		// uploads the file or directory $local to the location $remote (recursive).
@@ -92,16 +92,20 @@ Here come some examples of usage.
 	Ftp::delete($path);					// removes the file or directory from the given $path location (recursive).
 	Ftp::move($old, $new);				// moves the $old file or directory to $new location.
 	Ftp::copy($old, $new, $buffer)		// copies the content of $old to $new using a local $buffer folder.
+	
+	// Connection
+	Ftp::connection($connection)
+		->upload($local, $remove);		// switches the $connection to the defined slug and uses the upload method.
 ```
 
 ### Vanilla methods
 
 The library comes with all the php vanilla functions thanks to the `__call()` magic method.
-Any vanilla ftp_method called will be called using the current connexion as `ftp_stream` argument.
+Any vanilla ftp_method called will be called using the current connection as `ftp_stream` argument.
 Here are some example of usage.
 
 ```php
-	use Moxar\Ftp\Facades\Connexion as Ftp;
+	use Moxar\Ftp\Facades\Connection as Ftp;
 	
 	Ftp::ftp_chmod(755, $file);
 	Ftp::ftp_mkdir($path);

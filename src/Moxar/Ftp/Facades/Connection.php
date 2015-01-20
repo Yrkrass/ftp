@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class Connexion extends Facade {
+class Connection extends Facade {
 
 	protected static function getFacadeAccessor() 
 	{ 
-		return 'moxar.connexion'; 
+		return 'moxar.connection'; 
 	}
 }

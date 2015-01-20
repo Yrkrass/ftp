@@ -18,9 +18,9 @@ class FtpServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $this->app->bind('moxar.connexion', function()
+        $this->app->bind('moxar.connection', function()
         {
-			return new Connexion;
+			return new Connection;
 		});
 	}
 

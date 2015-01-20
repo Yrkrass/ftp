@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Config;
 use Exception;
 
-class Connexion {
+class Connection {
 
 	/*
 	 * address
@@ -26,7 +26,7 @@ class Connexion {
 	/*
 	 * Misc
 	 */
-	protected $connexion;
+	protected $connection;
 	
 	const PROTOCOL_FTP = 'ftp';
 	const PROTOCOL_SSL = 'ftps';
@@ -34,20 +34,20 @@ class Connexion {
 
 	public function __construct()
 	{
-		$this->connexion(Config::get('ftp.default'));
+		$this->connection(Config::get('ftp.default'));
 	}
 	
 	/*
 	 * Sets the protected attributes according to config file
 	 */
-	public function connexion($connexion)
+	public function connection($connection)
 	{
-		$this->connexion = $connexion;
-		$this->host = Config::get('ftp.'.$connexion.'.host');
-		$this->port = Config::get('ftp.'.$connexion.'.port');
-		$this->username = Config::get('ftp.'.$connexion.'.username');
-		$this->password = Config::get('ftp.'.$connexion.'.password');
-		$this->protocol = Config::get('ftp.'.$connexion.'.protocol');
+		$this->connection = $connection;
+		$this->host = Config::get('ftp.connections.'.$connection.'.host');
+		$this->port = Config::get('ftp.connections.'.$connection.'.port');
+		$this->username = Config::get('ftp.connections.'.$connection.'.username');
+		$this->password = Config::get('ftp.connections.'.$connection.'.password');
+		$this->protocol = Config::get('ftp.connections.'.$connection.'.protocol');
 		
 		$this->close();
 		switch($this->protocol) {
@@ -68,7 +68,7 @@ class Connexion {
 	}
 	
 	/*
-	 * Attempts to establish a ssl-ftp connexion
+	 * Attempts to establish a ssl-ftp connection
 	 */
 	public function sslConnect()
 	{
@@ -76,13 +76,13 @@ class Connexion {
 			$this->resource = ftp_ssl_connect($this->host, $this->port);
 		}
 		catch(Exception $e) {
-			throw(new Exception("Unable to establish a SSL-FTP connexion to host: ".$this->host.':'.$this->port));
+			throw(new Exception("Unable to establish a SSL-FTP connection to host: ".$this->host.':'.$this->port));
 		}
 		$this->login();
 	}
 	
 	/*
-	 * Attempts to establish a ftp connexion
+	 * Attempts to establish a ftp connection
 	 */
 	public function ftpConnect()
 	{
@@ -90,13 +90,13 @@ class Connexion {
 			$this->resource = ftp_connect($this->host, $this->port);
 		}
 		catch(Exception $e) {
-			throw(new Exception("Unable to establish a FTP connexion to host: ".$this->host.':'.$this->port));
+			throw(new Exception("Unable to establish a FTP connection to host: ".$this->host.':'.$this->port));
 		}
 		$this->login();
 	}
 	
 	/*
-	 * Attempts to login a ftp connexion
+	 * Attempts to login a ftp connection
 	 */
 	public function login()
 	{
@@ -104,7 +104,7 @@ class Connexion {
 			ftp_login($this->resource, $this->username, $this->password);
 		}
 		catch(Exception $e) {
-			throw(new Exception("Wrong credentials for Ftp connexion: ".$this->host.':'.$this->port));
+			throw(new Exception("Wrong credentials for Ftp connection: ".$this->host.':'.$this->port));
 		}
 	}
 	
@@ -219,7 +219,7 @@ class Connexion {
 	public function delete($path)
 	{
 		if(!$this->exists($path)) {
-			throw(new Exception('Given path '.$path.' does not exist on FTP connexion '.$this->connexion));
+			throw(new Exception('Given path '.$path.' does not exist on FTP connection '.$this->connection));
 		}
 		if($this->isDirectory($path)) {
 			$this->clean($path);
@@ -278,7 +278,7 @@ class Connexion {
 	}
 	
 	/*
-	 * Closes the FTP connexion
+	 * Closes the FTP connection
 	 */
 	public function close()
 	{
