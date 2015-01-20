@@ -13,6 +13,7 @@ To install, add the following lines to composer, then run composer update.
 		},
 		...
 	}
+```
 
 Don't forget to add the FtpServiceProvider to your config/app.pphp file.
 Also, I sugges you use an alias. The class responsible for the Ftp connexion is known as `connexion`.
@@ -35,6 +36,7 @@ Also, I sugges you use an alias. The class responsible for the Ftp connexion is 
 		),
 		...
 	);
+```
 	
 ## Configuration
 
@@ -57,6 +59,7 @@ The package behaves as the DB package provided by Illuminate. You need a config 
 			...
 		],
 	];
+```
 
 ## Usage
 
@@ -87,6 +90,7 @@ Here come some examples of usage.
 	Ftp::delete($path);					// removes the file or directory from the given $path location (recursive).
 	Ftp::move($old, $new);				// moves the $old file or directory to $new location.
 	Ftp::copy($old, $new, $buffer)		// copies the content of $old to $new using a local $buffer folder.
+```
 
 ### Vanilla methods
 
@@ -99,3 +103,4 @@ Here are some example of usage.
 	
 	Ftp::ftp_chmod(755, $file);
 	Ftp::ftp_mkdir($path);
+```
