@@ -113,7 +113,7 @@ class Connection {
 	 */
 	public function isDirectory($path)
 	{
-		return is_dir($this->protocol.'://'.$this->username.':'.$this->password.'@'.$this->host.':'.$this->port.'/'.$path);
+		return is_dir($this->url().$path);
 	}
 	
 	
@@ -122,7 +122,7 @@ class Connection {
 	 */
 	public function isFile($path)
 	{
-		return is_file($this->protocol.'://'.$this->username.':'.$this->password.'@'.$this->host.':'.$this->port.'/'.$path);
+		return is_file($this->url().'/'.$path);
 	}
 	
 	/*
@@ -204,8 +204,7 @@ class Connection {
 		
 		// Define transfer mode
 		if(is_null($mode)) {
-			$url = $this->protocol.'://'.$this->username.':'.$this->password
-				.'@'.$this->host.':'.$this->port.'/'.$remote;
+			$url = $this->url().$remote;
 			$mode = self::transferMode($url);
 		}
 		
@@ -254,6 +253,14 @@ class Connection {
 	public function move($old, $new)
 	{
 		ftp_rename($this->resource, $old, $new);
+	}
+	
+	/*
+	 * Returns a usable url for direct download
+	 */
+	public function url()
+	{
+		return $this->protocol.'://'.$this->username.':'.$this->password.'@'.$this->host.':'.$this->port.'/';
 	}
 	
 	/*
