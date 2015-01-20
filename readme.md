@@ -95,7 +95,7 @@ Here come some examples of usage.
 	Ftp::copy($old, $new, $buffer)		// copies the content of $old to $new using a local $buffer folder.
 	
 	// Connection
-	Ftp::connection($connection)
+	Ftp::connection('some_connection')
 		->upload($local, $remove);		// switches the $connection to the defined slug and uses the upload method.
 ```
 
