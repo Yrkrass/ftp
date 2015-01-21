@@ -146,6 +146,7 @@ class Connection {
 	 */
 	public function exists($path)
 	{
+		$path = rtrim($path, '/');
 		$files = $this->files(dirname($path));
 		return in_array($path, $files);
 	}
