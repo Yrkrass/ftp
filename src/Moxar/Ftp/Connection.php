@@ -180,7 +180,7 @@ class Connection {
 		
 		// uploads single file
 		if(!file_exists($local)) {
-                    throw(new Exception("File ".$lova." not found. Unable to upload.");
+                    throw(new Exception("File ".$lova." not found. Unable to upload."));
 		}
 		ftp_put($this->resource, $remote, $local, $mode);
 	}
